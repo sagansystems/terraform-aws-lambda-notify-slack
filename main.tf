@@ -40,10 +40,10 @@ data "archive_file" "notify_slack" {
 
 resource "aws_lambda_function" "notify_slack" {
   filename         = "${data.archive_file.notify_slack.output_path}"
+  source_code_hash = "${data.archive_file.notify_slack.output_base64sha256}"
   function_name    = "${var.lambda_function_name}"
   role             = "${aws_iam_role.lambda.arn}"
   handler          = "notify_slack.lambda_handler"
-  source_code_hash = "${data.archive_file.notify_slack.output_base64sha256}"
   runtime          = "python3.6"
   timeout          = 30
   kms_key_arn      = "${var.kms_key_arn}"
