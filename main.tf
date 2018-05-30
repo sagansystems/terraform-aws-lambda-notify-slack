@@ -50,9 +50,9 @@ resource "aws_lambda_function" "notify_slack" {
 
   environment {
     variables = {
-      SLACK_WEBHOOK_URL = "${var.slack_webhook_url}"
-      SLACK_CHANNEL     = "${var.slack_channel}"
-      SLACK_USERNAME    = "${var.slack_username}"
+      SLACK_WEBHOOK_URL     = "${var.slack_webhook_url}"
+      SLACK_DEFAULT_CHANNEL = "${var.slack_default_channel}"
+      SLACK_USERNAME        = "${var.slack_username}"
     }
   }
 

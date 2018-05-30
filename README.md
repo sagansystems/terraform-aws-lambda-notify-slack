@@ -6,13 +6,13 @@ This module creates an AWS Lambda function that consumes messages from an SNS qu
 
 ```
 module "notify_slack" {
-    source = "git::git@github.com:sagansystems/terraform-aws-lambda-notify-slack.git"
+    source = "git::https://github.com/sagansystems/terraform-aws-lambda-notify-slack.git"
 
     sns_topic_name = "slack-topic"
 
-    slack_webhook_url = "https://hooks.slack.com/services/AAA/BBB/CCC"
-    slack_channel     = "aws-notification"
-    slack_username    = "reporter"
+    slack_webhook_url     = "https://hooks.slack.com/services/AAA/BBB/CCC"
+    slack_default_channel = "aws-notification"
+    slack_username        = "reporter"
 }
 ```
 

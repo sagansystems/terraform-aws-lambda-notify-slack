@@ -12,13 +12,16 @@ def decrypt(encrypted_url):
     except Exception:
         logging.exception("Failed to decrypt URL with KMS")
 
-def build_slack_payload(slack_channel, slack_username, message):
+def build_slack_payload(slack_default_channel, slack_username, message):
     payload = {
-        "channel": slack_channel,
+        "channel": slack_default_channel,
         "username": slack_username,
         "text": message['text'],
         "attachments": []
     }
+
+    if 'channel' in message:
+        payload["channel"] = message['channel']
 
     if 'attachments' in message:
         payload["attachments"] = message['attachments']
@@ -27,10 +30,13 @@ def build_slack_payload(slack_channel, slack_username, message):
 
 def notify_slack(message, region):
     slack_url = os.environ['SLACK_WEBHOOK_URL']
+    slack_default_channel = os.environ['SLACK_DEFAULT_CHANNEL']
+    slack_user = os.environ['SLACK_USERNAME']
+
     if not slack_url.startswith("http"):
         slack_url = decrypt(slack_url)
 
-    payload = build_slack_payload(os.environ['SLACK_CHANNEL'], os.environ['SLACK_USERNAME'], message)
+    payload = build_slack_payload(slack_default_channel, slack_user, message)
 
     data = urllib.parse.urlencode({"payload": json.dumps(payload)}).encode("utf-8")
     req = urllib.request.Request(slack_url)

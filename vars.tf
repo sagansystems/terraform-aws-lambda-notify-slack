@@ -16,8 +16,8 @@ variable "slack_webhook_url" {
   description = "The URL of Slack webhook"
 }
 
-variable "slack_channel" {
-  description = "The name of the channel in Slack for notifications"
+variable "slack_default_channel" {
+  description = "The name of the channel in Slack for notifications when its not included in the payload"
 }
 
 variable "slack_username" {
