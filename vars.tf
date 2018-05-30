@@ -9,7 +9,7 @@ variable "sns_topic_name" {
 
 variable "lambda_function_name" {
   description = "The name of the Lambda function to create"
-  default     = "pagerduty-trigger-incident"
+  default     = "notify-slack"
 }
 
 variable "slack_webhook_url" {
